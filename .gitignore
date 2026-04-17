@@ -1,0 +1,22 @@
+# Virtual environment
+venv/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Database (don't commit your local DB)
+db.sqlite3
+
+# Media uploads
+media/
+
+# Environment variables (secrets)
+.env
+
+# VS Code
+.vscode/
+
+# OS files
+.DS_Store
