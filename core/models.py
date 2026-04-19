@@ -67,6 +67,9 @@ class Order(models.Model):
     class Meta:
         ordering = ['-created_at']
 
+    #image 
+    reference_image = models.ImageField(upload_to='order_refs/', blank=True, null=True)
+
 
 class PaymentProof(models.Model):
     order          = models.OneToOneField(Order, on_delete=models.CASCADE, related_name='payment')

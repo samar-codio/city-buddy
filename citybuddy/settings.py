@@ -132,3 +132,27 @@ MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
+
+
+
+
+
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+
+ACCOUNT_EMAIL_VERIFICATION    = 'none'
+SOCIALACCOUNT_AUTO_SIGNUP     = True
+SOCIALACCOUNT_LOGIN_ON_GET    = True
+
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'SCOPE': ['profile', 'email'],
+        'AUTH_PARAMS': {'access_type': 'online'},
+    }
+}
+
+# Custom adapter to restrict email domains
+SOCIALACCOUNT_ADAPTER = 'core.adapter.MySocialAccountAdapter'

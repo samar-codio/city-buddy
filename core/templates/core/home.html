@@ -1,11 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>CityBuddy</title>
 </head>
+
 <body>
     <h1>Welcome to CityBuddy 🏙️</h1>
     <p>Server is working!</p>
+    {% if user.is_authenticated %}
+    <p>Logged in as: <strong>{{ user.email }}</strong></p>
+    <p><a href="{% url 'account_logout' %}">Logout</a></p>
+    {% else %}
+    <p>You are not logged in.</p>
+    <p><a href="{% url 'google_login' %}">Login with Google</a></p>
+    {% endif %}
 </body>
+
 </html>

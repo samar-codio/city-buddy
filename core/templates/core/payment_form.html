@@ -1,0 +1,18 @@
+<div style="border: 2px solid green; padding: 20px; border-radius: 10px; margin-bottom: 20px; background-color: #f0fff0;">
+    <h3 style="color: green;">💳 STEP 2: Make Payment</h3>
+    <p>Please send the total amount to:</p>
+    <p><strong>Option 1: SADAPAY</strong></p>
+    <p>Number: <strong>03299745779</strong></p>
+    <p>Name: <strong>SAMAR QAYYUM</strong></p>
+</div>
+
+<h3>Upload Payment Proof</h3>
+<p>Order ID: #{{ order.id }}</p>
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" style="background: green; color: white; padding: 10px; border: none; border-radius: 5px; cursor: pointer;">
+        Submit Proof & Finish
+    </button>
+</form>

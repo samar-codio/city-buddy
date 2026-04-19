@@ -35,3 +35,5 @@ class OfferAdmin(admin.ModelAdmin):
 class BannerAdmin(admin.ModelAdmin):
     list_display  = ('caption', 'is_active')
     list_editable = ('is_active',)
+
+

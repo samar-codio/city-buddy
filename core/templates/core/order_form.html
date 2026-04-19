@@ -1,0 +1,9 @@
+<h2>Place an Order</h2>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" style="background: blue; color: white; padding: 10px;">
+        Submit Order
+    </button>
+</form>
+<a href="{% url 'home' %}">Back to Home</a>
