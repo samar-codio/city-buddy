@@ -1,0 +1,61 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+<div class="max-w-5xl mx-auto">
+    <div class="flex justify-between items-end mb-8">
+        <h2 class="text-4xl font-extrabold text-gray-900 tracking-tight">My Orders</h2>
+        <a href="{% url 'place_order' %}"
+            class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-xl font-bold transition py-2.5">New Order
+            +</a>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {% for order in orders %}
+        <div
+            class="bg-white p-6 rounded-3xl shadow-sm border border-gray-100 flex flex-col justify-between hover:shadow-xl transition-all group relative overflow-hidden">
+            <div
+                class="absolute top-0 right-0 h-24 w-24 bg-blue-50 rounded-bl-full -mr-12 -mt-12 group-hover:bg-blue-100 transition">
+            </div>
+
+            <div class="relative">
+                <div class="flex justify-between items-start mb-4">
+                    <p class="text-xs font-bold text-gray-400 uppercase tracking-widest">Order #{{ order.id }}</p>
+                    <span class="px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider
+                            {% if order.status == 'pending' %}bg-yellow-100 text-yellow-700
+                            {% elif order.status == 'paid' %}bg-blue-100 text-blue-700
+                            {% elif order.status == 'completed' %}bg-green-100 text-green-700{% endif %}">
+                        {{ order.status }}
+                    </span>
+                </div>
+
+                <h3 class="text-xl font-bold text-gray-800 mb-1 group-hover:text-blue-600 transition">{{ order.name }}
+                </h3>
+                <p class="text-sm text-gray-500 mb-4 line-clamp-1 italic">"{{ order.description|truncatechars:40 }}"</p>
+            </div>
+
+            <div class="mt-6 flex items-center justify-between border-t border-gray-50 pt-4">
+                <p class="text-xs font-bold text-gray-400">{{ order.created_at|date:"M d, H:i" }}</p>
+                <div class="flex items-center space-x-3">
+                    <!-- Detail View Link -->
+                    <a href="{% url 'order_detail' order.id %}"
+                        class="text-xs font-bold text-blue-600 hover:underline">View Details</a>
+
+                    <!-- Dynamic Pay Link -->
+                    {% if order.status == 'pending' and not order.payment %}
+                    <a href="{% url 'submit_payment' order.id %}"
+                        class="bg-blue-600 text-white px-4 py-1.5 rounded-lg text-xs font-bold shadow-sm hover:scale-105 transition">Pay
+                        Now →</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="text-center py-20 bg-white rounded-3xl border-2 border-dashed border-gray-200">
+            <p class="text-gray-400 text-lg">You haven't placed any orders yet.</p>
+            <a href="{% url 'place_order' %}"
+                class="mt-4 inline-block bg-blue-600 text-white px-6 py-2 rounded-xl font-bold">Start Now</a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

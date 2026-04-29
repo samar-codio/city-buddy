@@ -52,29 +52,31 @@ class Order(models.Model):
     ]
     user        = models.ForeignKey(User, on_delete=models.CASCADE, related_name='orders')
     name        = models.CharField(max_length=150)
-    service     = models.CharField(max_length=50, choices=SERVICE_CHOICES)
+    service     = models.CharField(max_length=50, choices=SERVICE_CHOICES, blank=True, null=True)
     description = models.TextField(blank=True)
     status      = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
     created_at  = models.DateTimeField(auto_now_add=True)
     # Optional built-in fields (shown/hidden by OrderFieldConfig)
     room_no       = models.CharField(max_length=20, blank=True)
-    referral_code = models.CharField(max_length=50, blank=True)
+    referral_code = models.CharField(max_length=50, blank=True, null=True)
     # Extra dynamic fields stored as JSON
     # Stores answers for any custom fields admin creates
     extra_data    = models.JSONField(default=dict, blank=True)
+    phone_number = models.CharField(max_length=20)
+    alt_phone_number = models.CharField(max_length=20)
     def __str__(self):
         return f"Order #{self.pk} — {self.name} [{self.status}]"
     class Meta:
         ordering = ['-created_at']
 
     #image 
-    reference_image = models.ImageField(upload_to='order_refs/', blank=True, null=True)
+    reference_image = models.ImageField(upload_to='order_refs/')
 
 
 class PaymentProof(models.Model):
     order          = models.OneToOneField(Order, on_delete=models.CASCADE, related_name='payment')
     transaction_id = models.CharField(max_length=100, blank=True)
-    screenshot     = models.ImageField(upload_to='payment_proofs/', blank=True, null=True)
+    screenshot     = models.ImageField(upload_to='payment_proofs/')
     submitted_at   = models.DateTimeField(auto_now_add=True)
     def __str__(self):
         return f"Payment for Order #{self.order.pk}"

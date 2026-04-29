@@ -1,0 +1,98 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CityBuddy 🏙️</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom smooth scrolling and hover animations */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        .hover-scale {
+            transition: transform 0.2s;
+        }
+
+        .hover-scale:hover {
+            transform: scale(1.03);
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 font-sans leading-normal tracking-normal text-gray-900">
+
+    <!-- Contact Info Top Bar -->
+    <div class="bg-blue-600 text-white text-[10px] sm:text-xs py-2 px-4 shadow-inner">
+        <div class="max-w-6xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2">
+            <p class="font-bold flex items-center">
+                <span class="mr-2">💬</span> If you have any query DM:
+                <a href="https://wa.me/923099633538"
+                    class="ml-2 bg-white/20 px-2 py-0.5 rounded hover:bg-white/30 transition">WhatsApp: 03099633538</a>
+            </p>
+            <p class="flex items-center space-x-4">
+                <span class="opacity-80">Email: samarqayyumcs@gmail.com</span>
+
+            </p>
+        </div>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex-shrink-0 flex items-center">
+                    <a href="{% url 'home' %}" class="flex items-center space-x-2">
+                        <img src="{% static 'core/images/slazzer-preview-u4q5y.png' %}" alt="CityBuddy Logo"
+                            class="h-10 w-10">
+                        <span class="text-2xl font-bold text-blue-600">CityBuddy</span>
+                    </a>
+                </div>
+                <!-- Links -->
+                <div class="hidden md:flex space-x-8 font-medium">
+                    <a href="{% url 'place_order' %}" class="hover:text-blue-600 transition">Place Order</a>
+                    <!-- Change this: -->
+
+
+                    <!-- To this: -->
+                    <a href="{% url 'my_orders' %}" class="hover:text-blue-600 transition">My Orders</a>
+                    <a href="{% url 'price_list' %}" class="hover:text-blue-600 transition">Price List</a>
+                </div>
+                <!-- Auth -->
+                <div>
+                    {% if user.is_authenticated %}
+                    <div class="flex items-center space-x-4">
+                        <span class="text-sm text-gray-600 hidden sm:inline">{{ user.email }}</span>
+                        <a href="{% url 'account_logout' %}"
+                            class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg text-sm transition">Logout</a>
+                    </div>
+                    {% else %}
+                    <a href="{% url 'google_login' %}"
+                        class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-semibold transition">Login
+                        with Google</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-6xl mx-auto py-6 px-4 min-h-screen">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8 mt-12">
+        <div class="max-w-6xl mx-auto px-4 text-center">
+            <p>&copy; 2026 CityBuddy — All Rights Reserved.</p>
+        </div>
+    </footer>
+
+</body>
+
+</html>

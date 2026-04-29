@@ -1,21 +1,43 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'core/base.html' %}
 
-<head>
-    <meta charset="UTF-8">
-    <title>CityBuddy</title>
-</head>
+{% block content %}
 
-<body>
-    <h1>Welcome to CityBuddy 🏙️</h1>
-    <p>Server is working!</p>
-    {% if user.is_authenticated %}
-    <p>Logged in as: <strong>{{ user.email }}</strong></p>
-    <p><a href="{% url 'account_logout' %}">Logout</a></p>
+<!-- Banner / Ads Slider (Simplest version) -->
+<div class="relative w-full h-64 md:h-96 rounded-2xl overflow-hidden shadow-xl mb-12">
+    {% if banners %}
+    {% for banner in banners %}
+    <div class="absolute inset-0 w-full h-full bg-cover bg-center"
+        style="background-image: url('{{ banner.image.url }}');">
+        <div class="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center">
+            <h2 class="text-white text-3xl md:text-5xl font-bold drop-shadow-lg">{{ banner.caption }}</h2>
+        </div>
+    </div>
+    {% endfor %}
     {% else %}
-    <p>You are not logged in.</p>
-    <p><a href="{% url 'google_login' %}">Login with Google</a></p>
+    <!-- Placeholder if no banners -->
+    <div class="w-full h-full bg-blue-500 flex items-center justify-center">
+        <h2 class="text-white text-3xl font-bold">Welcome to CityBuddy 🚀</h2>
+    </div>
     {% endif %}
-</body>
+</div>
 
-</html>
+<!-- Offers Section -->
+<section>
+    <h2 class="text-3xl font-bold mb-8 text-center text-gray-800">Popular Products</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {% for offer in offers %}
+        <div class="bg-white rounded-xl shadow-md overflow-hidden hover-scale border border-gray-100">
+            <img class="h-48 w-full object-cover" src="{{ offer.image.url }}" alt="{{ offer.title }}">
+            <div class="p-6">
+                <h3 class="text-xl font-bold mb-2">{{ offer.title }}</h3>
+                <p class="text-gray-600 text-sm mb-4">{{ offer.description }}</p>
+                <a href="{% url 'place_order' %}"
+                    class="inline-block w-full text-center bg-blue-100 text-blue-700 font-bold py-2 rounded-lg hover:bg-blue-600 hover:text-white transition">Order
+                    Now</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+{% endblock %}
