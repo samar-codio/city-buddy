@@ -3,17 +3,19 @@
 {% block content %}
 <div class="max-w-2xl mx-auto">
     <!-- Payment Instructions -->
-    <div class="bg-emerald-50 border-2 border-emerald-500 p-8 rounded-2xl shadow-sm mb-8">
+    <div class="bg-emerald-900/20 border-2 border-emerald-700 p-8 rounded-2xl shadow-sm mb-8">
         <div class="flex items-center space-x-4 mb-4">
             <div class="bg-emerald-500 p-3 rounded-full text-white">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
                 </svg>
             </div>
-            <h3 class="text-2xl font-bold text-emerald-800">STEP 2: Make Payment</h3>
+            <h3 class="text-2xl font-bold text-emerald-200">STEP 2: Make Payment</h3>
         </div>
-        
-        <div class="space-y-2 text-emerald-900 bg-white/50 p-4 rounded-xl">
+
+        <div class="space-y-2 text-emerald-200 bg-slate-800/60 p-4 rounded-xl">
             <p class="text-sm uppercase tracking-wider font-semibold opacity-70">Option 1: SADAPAY</p>
             <p class="text-2xl font-mono font-bold tracking-tighter">0329 9745 779</p>
             <p class="text-lg font-medium">Samar Qayyum</p>
@@ -21,22 +23,23 @@
     </div>
 
     <!-- Proof Upload Form -->
-    <div class="bg-white p-8 rounded-2xl shadow-lg border border-gray-100">
-        <h3 class="text-xl font-bold mb-4 flex items-center">
+    <div class="bg-slate-900 p-8 rounded-2xl shadow-lg border border-slate-800">
+        <h3 class="text-xl font-bold mb-4 flex items-center text-slate-100">
             <span class="mr-2">📤</span> Upload Payment Proof
         </h3>
-        <p class="text-sm text-gray-500 mb-6 font-mono bg-gray-50 p-2 rounded">Order ID: #{{ order.id }}</p>
+        <p class="text-sm text-slate-400 mb-6 font-mono bg-slate-800/40 p-2 rounded">Order ID: #{{ order.id }}</p>
 
         <form method="post" enctype="multipart/form-data" class="space-y-6">
             {% csrf_token %}
             {% for field in form %}
-                <div class="space-y-2">
-                    <label class="block text-sm font-semibold text-gray-700">{{ field.label }}</label>
-                    {{ field }}
-                </div>
+            <div class="space-y-2">
+                <label class="block text-sm font-semibold text-slate-200">{{ field.label }}</label>
+                {{ field }}
+            </div>
             {% endfor %}
 
-            <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-xl shadow-lg transition transform hover:-translate-y-1">
+            <button type="submit"
+                class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-xl shadow-lg transition transform hover:-translate-y-1">
                 Verify Payment & Finish ✅
             </button>
         </form>

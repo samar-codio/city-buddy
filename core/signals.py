@@ -6,10 +6,10 @@ from .models import UserProfile
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
-        # Create profile and use Google's name as full_name
         UserProfile.objects.create(
-            user=instance, 
-            full_name=instance.get_full_name() or instance.username
+            user=instance,
+            full_name=instance.get_full_name() or instance.username,
+            contact='',
         )
 
 @receiver(post_save, sender=User)

@@ -1,13 +1,10 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth import login, logout
+from django.contrib.auth.views import LoginView
 from django.contrib.auth.decorators import login_required
-from .forms import OrderForm
-from .models import Order, PaymentProof,Banner,Offer
-from .forms import PaymentProofForm
-from .gsheets_utils import push_order_to_sheet, get_price_list_from_sheet
+from .forms import OrderForm, PaymentProofForm, SignUpForm, StyledAuthenticationForm
+from .models import Order, PaymentProof, Banner, Offer
 
-
-# Create your views here.
-from .models import Banner, Offer
 
 def home(request):
     banners = Banner.objects.filter(is_active=True)
@@ -25,10 +22,7 @@ def place_order(request):
             order = form.save(commit=False)
             order.user = request.user
             order.save()
-            
-            # 🚀 NEW: Sync to Google Sheets!
-            push_order_to_sheet(order)
-            
+
             return redirect('submit_payment', order_id=order.id)
     else:
         full_name = ""
@@ -39,9 +33,41 @@ def place_order(request):
         form = OrderForm(initial={'name': full_name})
     return render(request, 'core/order_form.html', {'form': form})
 
-# 🚀 NEW: View to show Price List from Sheets
+
+class ManualLoginView(LoginView):
+    template_name = 'core/login.html'
+    authentication_form = StyledAuthenticationForm
+
+
+def signup(request):
+    if request.user.is_authenticated:
+        return redirect('home')
+
+    if request.method == 'POST':
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect('home')
+    else:
+        form = SignUpForm()
+
+    return render(request, 'core/signup.html', {'form': form})
+
+
+def logout_view(request):
+    logout(request)
+    return redirect('home')
+
+
 def price_list_view(request):
-    prices = get_price_list_from_sheet()
+    prices = [
+        {'Service': 'Printing', 'Price': 'Contact for latest rate'},
+        {'Service': 'Binding', 'Price': 'Contact for latest rate'},
+        {'Service': 'Lamination', 'Price': 'Contact for latest rate'},
+        {'Service': 'Photocopy', 'Price': 'Contact for latest rate'},
+        {'Service': 'Other campus errands', 'Price': 'Quote after request'},
+    ]
     return render(request, 'core/price_list.html', {'prices': prices})
 
 

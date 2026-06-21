@@ -1,0 +1,47 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto bg-slate-900 p-8 rounded-2xl shadow-lg border border-slate-800">
+    <div class="mb-8">
+        <p class="text-sm font-bold text-cyan-400 uppercase">Create account</p>
+        <h2 class="text-3xl font-bold text-slate-100 mt-2">Sign up for CityBuddy</h2>
+        <p class="text-slate-400 mt-2">Your orders, payment proofs, and updates stay connected to this account.</p>
+    </div>
+
+    <form method="post" class="space-y-5">
+        {% csrf_token %}
+
+        {% if form.non_field_errors %}
+        <div class="rounded-xl bg-rose-900/40 border border-rose-800 p-4 text-sm font-medium text-rose-200">
+            {{ form.non_field_errors }}
+        </div>
+        {% endif %}
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+            {% for field in form %}
+            <div
+                class="space-y-2 {% if field.name == 'email' or field.name == 'password1' or field.name == 'password2' %}md:col-span-2{% endif %}">
+                <label class="block text-sm font-semibold text-slate-200">{{ field.label }}</label>
+                {{ field }}
+                {% if field.help_text %}
+                <p class="text-xs text-slate-400">{{ field.help_text }}</p>
+                {% endif %}
+                {% for error in field.errors %}
+                <p class="text-xs text-rose-300 font-medium">{{ error }}</p>
+                {% endfor %}
+            </div>
+            {% endfor %}
+        </div>
+
+        <button type="submit"
+            class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-xl shadow-lg transition">
+            Create Account
+        </button>
+    </form>
+
+    <p class="text-center text-sm text-gray-500 mt-6">
+        Already have an account?
+        <a href="{% url 'login' %}" class="font-bold text-blue-600 hover:text-blue-700">Login</a>
+    </p>
+</div>
+{% endblock %}

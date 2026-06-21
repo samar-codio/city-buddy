@@ -15,7 +15,8 @@
     {% endfor %}
     {% else %}
     <!-- Placeholder if no banners -->
-    <div class="w-full h-full bg-gradient-to-r from-blue-600 via-blue-500 to-indigo-600 flex items-center justify-center">
+    <div
+        class="w-full h-full bg-gradient-to-r from-blue-600 via-blue-500 to-indigo-600 flex items-center justify-center">
         <div class="text-center">
             <h2 class="text-white text-3xl md:text-5xl font-bold mb-3">Welcome to CityBuddy 🚀</h2>
             <p class="text-blue-100 text-lg md:text-xl">Your one-stop campus delivery service</p>
@@ -27,21 +28,22 @@
 <!-- Offers Section -->
 <section class="mb-16">
     <div class="text-center mb-10">
-        <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-2">Our Services</h2>
-        <p class="text-gray-500 text-lg max-w-xl mx-auto">Everything you need, delivered to your doorstep — fast, reliable, and hassle-free.</p>
+        <h2 class="text-3xl md:text-4xl font-bold text-slate-100 mb-2">Our Services</h2>
+        <p class="text-slate-400 text-lg max-w-xl mx-auto">Everything you need, delivered to your doorstep — fast,
+            reliable, and hassle-free.</p>
     </div>
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
         {% for offer in offers %}
-        <div class="bg-white rounded-2xl shadow-md overflow-hidden hover-scale border border-gray-100 group">
+        <div class="bg-slate-900 rounded-2xl shadow-md overflow-hidden hover-scale border border-slate-800 group">
             <div class="h-52 overflow-hidden">
                 <img class="h-full w-full object-cover group-hover:scale-110 transition-transform duration-500"
                     src="{{ offer.image.url }}" alt="{{ offer.title }}">
             </div>
             <div class="p-5">
-                <h3 class="text-lg font-bold mb-2 text-gray-800">{{ offer.title }}</h3>
-                <p class="text-gray-500 text-sm mb-4 leading-relaxed">{{ offer.description }}</p>
+                <h3 class="text-lg font-bold mb-2 text-slate-100">{{ offer.title }}</h3>
+                <p class="text-slate-400 text-sm mb-4 leading-relaxed">{{ offer.description }}</p>
                 <a href="{% url 'place_order' %}"
-                    class="inline-block w-full text-center bg-blue-50 text-blue-600 font-semibold py-2.5 rounded-xl hover:bg-blue-600 hover:text-white transition-all duration-300">Order
+                    class="inline-block w-full text-center bg-slate-800/60 text-cyan-300 font-semibold py-2.5 rounded-xl hover:bg-cyan-500 hover:text-slate-900 transition-all duration-300">Order
                     Now →</a>
             </div>
         </div>

@@ -2,36 +2,35 @@
 
 {% block content %}
 <div class="max-w-4xl mx-auto">
-    <h2 class="text-4xl font-bold mb-8 text-center text-gray-800">💰 Price List</h2>
-    
-    <div class="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100">
+    <h2 class="text-4xl font-bold mb-8 text-center text-slate-100">💰 Price List</h2>
+
+    <div class="bg-slate-900 rounded-2xl shadow-xl overflow-hidden border border-slate-800">
         <table class="w-full text-left">
-            <thead class="bg-gray-50 border-b">
+            <thead class="bg-slate-800/40 border-b">
                 <tr>
-                    <!-- These headers should match the first row in your Sheet -->
-                    <th class="px-6 py-4 text-sm font-bold text-gray-600 uppercase">Service</th>
-                    <th class="px-6 py-4 text-sm font-bold text-gray-600 uppercase text-right">Price (PKR)</th>
+                    <th class="px-6 py-4 text-sm font-bold text-slate-200 uppercase">Service</th>
+                    <th class="px-6 py-4 text-sm font-bold text-slate-200 uppercase text-right">Price (PKR)</th>
                 </tr>
             </thead>
-            <tbody class="divide-y divide-gray-100">
+            <tbody class="divide-y divide-slate-800">
                 {% for item in prices %}
-                <tr class="hover:bg-blue-50 transition">
-                    <td class="px-6 py-4 font-medium text-gray-800">{{ item.Service }}</td>
-                    <td class="px-6 py-4 text-right font-bold text-blue-600">{{ item.Price }}</td>
+                <tr class="hover:bg-slate-800/40 transition">
+                    <td class="px-6 py-4 font-medium text-slate-100">{{ item.Service }}</td>
+                    <td class="px-6 py-4 text-right font-bold text-cyan-400">{{ item.Price }}</td>
                 </tr>
                 {% empty %}
                 <tr>
                     <td colspan="2" class="px-6 py-12 text-center text-gray-400">
-                        No prices found. Add them to your Google Sheet! 📊
+                        No prices available right now.
                     </td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
     </div>
-    
+
     <div class="mt-8 text-center">
-        <p class="text-sm text-gray-400">Prices are updated live from Google Sheets.</p>
+        <p class="text-sm text-gray-400">Final price is confirmed after your order details are reviewed.</p>
     </div>
 </div>
 {% endblock %}

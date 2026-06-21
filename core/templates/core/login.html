@@ -1,0 +1,41 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+<div class="max-w-md mx-auto bg-slate-900 p-8 rounded-2xl shadow-lg border border-slate-800">
+    <div class="mb-8">
+        <p class="text-sm font-bold text-cyan-400 uppercase">Welcome back</p>
+        <h2 class="text-3xl font-bold text-slate-100 mt-2">Login to CityBuddy</h2>
+        <p class="text-slate-400 mt-2">Use your CityBuddy username and password to continue.</p>
+    </div>
+
+    <form method="post" class="space-y-5">
+        {% csrf_token %}
+
+        {% if form.non_field_errors %}
+        <div class="rounded-xl bg-rose-900/40 border border-rose-800 p-4 text-sm font-medium text-rose-200">
+            {{ form.non_field_errors }}
+        </div>
+        {% endif %}
+
+        {% for field in form %}
+        <div class="space-y-2">
+            <label class="block text-sm font-semibold text-slate-200">{{ field.label }}</label>
+            {{ field }}
+            {% for error in field.errors %}
+            <p class="text-xs text-rose-300 font-medium">{{ error }}</p>
+            {% endfor %}
+        </div>
+        {% endfor %}
+
+        <button type="submit"
+            class="w-full bg-cyan-500 hover:bg-cyan-400 text-slate-900 font-bold py-3 rounded-xl shadow-lg transition">
+            Login
+        </button>
+    </form>
+
+    <p class="text-center text-sm text-slate-400 mt-6">
+        New to CityBuddy?
+        <a href="{% url 'signup' %}" class="font-bold text-cyan-400 hover:text-cyan-300">Create an account</a>
+    </p>
+</div>
+{% endblock %}
