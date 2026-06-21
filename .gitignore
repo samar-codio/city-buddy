@@ -9,8 +9,13 @@ __pycache__/
 # Database (don't commit your local DB)
 db.sqlite3
 
-# Media uploads
-media/
+# Media uploads (user-generated content)
+media/order_refs/
+media/payment_proofs/
+media/banners/
+
+# Keep offer images (product thumbnails committed to repo)
+# media/offers/ is NOT ignored
 
 # Environment variables (secrets)
 .env
@@ -21,3 +26,6 @@ media/
 # OS files
 .DS_Store
 service_account.json
+
+# Collected static files
+staticfiles/
