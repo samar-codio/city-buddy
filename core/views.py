@@ -31,7 +31,12 @@ def place_order(request):
             
             return redirect('submit_payment', order_id=order.id)
     else:
-        form = OrderForm(initial={'name': request.user.profile.full_name})
+        full_name = ""
+        if hasattr(request.user, 'profile') and request.user.profile:
+            full_name = request.user.profile.full_name
+        else:
+            full_name = request.user.get_full_name() or request.user.username
+        form = OrderForm(initial={'name': full_name})
     return render(request, 'core/order_form.html', {'form': form})
 
 # 🚀 NEW: View to show Price List from Sheets
